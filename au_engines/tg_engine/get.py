@@ -2,8 +2,13 @@ import os
 import logging
 import requests
 from requests.exceptions import RequestException
+from pathlib import Path
+from pyrogram import Client
 from au_engines._totp import totp
 from .types import TelegramChannel
+
+TG_API_ID = os.getenv("TG_API_ID")
+TG_API_HASH = os.getenv("TG_API_HASH")
 
 def get_telegram_channels(user_id: int) -> list[TelegramChannel] | None:
     try:
@@ -23,4 +28,32 @@ def get_telegram_channels(user_id: int) -> list[TelegramChannel] | None:
         return None
     except Exception as e:
         logging.error(f"Exception: failed to get telegram channels: {e}")
+        return None
+
+def get_telegram_client(phone: str) -> Client | None:
+    storage_path = Path(__file__).parent / "sessions"
+    if storage_path.exists():
+        session_path = storage_path / f"{phone}.session"
+        if session_path.exists():
+            return Client(phone, api_id=TG_API_ID, api_hash=TG_API_HASH, phone_number=phone, workdir=storage_path)
+    try:
+        with requests.Session() as session:
+            response = session.post(
+                url=os.getenv("CHC_TELEGRAM_SESSIONS_URL"),
+                json={"phone": phone},
+                headers={"Authorization": totp.now()},
+                timeout=10,
+            )
+            if response.status_code != 200:
+                return None
+            if not storage_path.exists():
+                storage_path.mkdir()
+            with open(storage_path / f"{phone}.session", "wb") as file:
+                file.write(response.content)
+            return Client(phone, api_id=TG_API_ID, api_hash=TG_API_HASH, phone_number=phone, workdir=storage_path)
+    except RequestException as e:
+        logging.error(f"RequestException: failed to get telegram client: {e}")
+        return None
+    except Exception as e:
+        logging.error(f"Exception: failed to get telegram client: {e}")
         return None

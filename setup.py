@@ -8,7 +8,6 @@ setup(
     packages=find_packages(),
     install_requires=[
         'requests',
-        'cachetools',
         'python-dotenv',
         'pyotp',
         'pyrogram',
