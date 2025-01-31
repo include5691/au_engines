@@ -10,7 +10,7 @@ from .types import TelegramChannel
 TG_API_ID = os.getenv("TG_API_ID")
 TG_API_HASH = os.getenv("TG_API_HASH")
 
-def get_telegram_channels(user_id: int) -> list[TelegramChannel] | None:
+def get_telegram_channels(user_id: str | int) -> list[TelegramChannel] | None:
     try:
         with requests.Session() as session:
             response = session.post(
