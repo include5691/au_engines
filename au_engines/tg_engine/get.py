@@ -35,10 +35,11 @@ def get_telegram_client(*args, id: int | None = None, phone: str | None = None) 
         raise ValueError("get_telegram_client() takes keyword arguments only")
     storage_path = Path(__file__).parent / "sessions"
     key = f"{id}{phone}".replace("None", "")
-    if storage_path.exists():
-        session_path = storage_path / f"{key}.session"
-        if session_path.exists():
-            return Client(key, api_id=TG_API_ID, api_hash=TG_API_HASH, phone_number=phone, workdir=storage_path)
+    if not storage_path.exists():
+        storage_path.mkdir()
+    session_path = storage_path / f"{key}.session"
+    if session_path.exists():
+        return Client(key, api_id=TG_API_ID, api_hash=TG_API_HASH, phone_number=phone, workdir=storage_path)
     try:
         with requests.Session() as session:
             response = session.post(
@@ -49,8 +50,6 @@ def get_telegram_client(*args, id: int | None = None, phone: str | None = None) 
             )
             if response.status_code != 200:
                 return None
-            if not storage_path.exists():
-                storage_path.mkdir()
             with open(storage_path / f"{key}.session", "wb") as file:
                 file.write(response.content)
             return Client(key, api_id=TG_API_ID, api_hash=TG_API_HASH, phone_number=phone, workdir=storage_path)
