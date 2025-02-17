@@ -10,6 +10,8 @@ from .types import TelegramChannel
 TG_API_ID = os.getenv("TG_API_ID")
 TG_API_HASH = os.getenv("TG_API_HASH")
 
+clients_cache = {}
+
 def get_telegram_channels(user_id: str | int) -> list[TelegramChannel] | None:
     try:
         with requests.Session() as session:
@@ -35,11 +37,14 @@ def get_telegram_client(*args, id: int | None = None, phone: str | None = None) 
         raise ValueError("get_telegram_client() takes keyword arguments only")
     storage_path = Path(__file__).parent / "sessions"
     key = f"{id}{phone}".replace("None", "")
+    if key in clients_cache:
+        return clients_cache[key]
     if not storage_path.exists():
         storage_path.mkdir()
     session_path = storage_path / f"{key}.session"
     if session_path.exists():
-        return Client(key, api_id=TG_API_ID, api_hash=TG_API_HASH, phone_number=phone, workdir=storage_path)
+        clients_cache[key] = Client(key, api_id=TG_API_ID, api_hash=TG_API_HASH, phone_number=phone, workdir=storage_path)
+        return clients_cache[key]
     try:
         with requests.Session() as session:
             response = session.post(
@@ -52,7 +57,8 @@ def get_telegram_client(*args, id: int | None = None, phone: str | None = None) 
                 return None
             with open(storage_path / f"{key}.session", "wb") as file:
                 file.write(response.content)
-            return Client(key, api_id=TG_API_ID, api_hash=TG_API_HASH, phone_number=phone, workdir=storage_path)
+            clients_cache[key] = Client(key, api_id=TG_API_ID, api_hash=TG_API_HASH, phone_number=phone, workdir=storage_path)
+            return clients_cache[key]
     except RequestException as e:
         logging.error(f"RequestException: failed to get telegram client: {e}")
         return None
