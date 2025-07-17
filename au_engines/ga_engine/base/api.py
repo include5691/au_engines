@@ -16,8 +16,8 @@ class API(Config):
     def call_instance_api(
         self,
         method: str,
-        http_method: HttpMethod = HttpMethod.POST,
         payload: dict | None = None,
+        http_method: HttpMethod = HttpMethod.POST,
     ) -> dict | None:
         try:
             with requests.Session() as session:
