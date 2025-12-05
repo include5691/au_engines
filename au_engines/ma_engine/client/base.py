@@ -9,13 +9,11 @@ class MaxClientBase:
         self.client = Client(base_url=base_url)
 
     def _post(self, endpoint: str, data: dict) -> dict | None:
-        print(data)
         response = self.client.post(
             url=endpoint.format(idInstance=self.instance_id, apiTokenInstance=self.api_token),
             json=data,
             timeout=10,
         )
-        print(response.text)
         response.raise_for_status()
         return response.json() if response.content else None
 

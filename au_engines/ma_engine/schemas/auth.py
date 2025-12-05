@@ -1,11 +1,23 @@
 from typing import Annotated
-from pydantic import Field
+from pydantic import BaseModel, Field
 
 from ..enums import AuthorizationFailureReason
 from .mixins import PhoneNumberMixin, ResponseStatusMixin
 
 
 class AuthRequest(PhoneNumberMixin): ...
+
+
+class AuthCodeRequest(BaseModel):
+
+    code: Annotated[
+        str,
+        Field(
+            description="The authorization code received via SMS",
+            min_length=6,
+            max_length=6,
+        ),
+    ]
 
 
 class AuthResponseData(ResponseStatusMixin):
