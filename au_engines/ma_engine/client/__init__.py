@@ -1,4 +1,5 @@
 from .auth import MaxClientAuth
+from .contacts import MaxClientContacts
 
 
-class MaxClient(MaxClientAuth): ...
+class MaxClient(MaxClientContacts, MaxClientAuth): ...

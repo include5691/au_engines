@@ -5,11 +5,11 @@ from pydantic import BaseModel, Field, field_validator
 class PhoneNumberMixin(BaseModel):
 
     phone_number: Annotated[
-        str,
+        int,
         Field(
-            description="The phone number in international format without '+' sign",
-            max_length=11,
-            min_length=11,
+            description="The phone number in international format: 11 or 12 digits",
+            ge=70000000000,
+            le=79999999999,
             serialization_alias="phoneNumber",
         ),
     ]
