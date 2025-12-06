@@ -29,3 +29,37 @@ class CheckAccountResponse(BaseModel):
             validation_alias="chatId",
         ),
     ]
+
+
+class GetContactsResponse(BaseModel):
+
+    chat_id: Annotated[
+        str,
+        Field(
+            validation_alias="chatId",
+        ),
+    ]
+
+    name: Annotated[
+        str,
+        Field(),
+    ]
+
+    contact_name: Annotated[
+        str,
+        Field(
+            validation_alias="contactName",
+        ),
+    ]
+
+    type: Annotated[
+        str,
+        Field(),
+    ]
+
+    phone_number: Annotated[
+        int,
+        Field(
+            validation_alias="phoneNumber",
+        ),
+    ]

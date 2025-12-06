@@ -19,7 +19,7 @@ class MaxClientBase:
 
     def _get(self, endpoint: str, params: dict | None = None) -> dict | None:
         response = self.client.get(
-            url=endpoint.format(idInstance=self.instance_id, apiToken=self.api_token),
+            url=endpoint.format(idInstance=self.instance_id, apiTokenInstance=self.api_token),
             params=params,
             timeout=10,
         )
