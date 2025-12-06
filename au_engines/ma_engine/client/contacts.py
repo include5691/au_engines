@@ -1,8 +1,8 @@
-from .base import MaxClientBase
+from base import ClientBase
 from ..schemas import CheckAccountRequest, CheckAccountResponse, GetContactsResponse
 
 
-class MaxClientContacts(MaxClientBase):
+class MaxClientContacts(ClientBase):
 
     def check_account(self, request: CheckAccountRequest) -> CheckAccountResponse:
         response = self._post(
@@ -18,4 +18,3 @@ class MaxClientContacts(MaxClientBase):
             params=params,
         )
         return [GetContactsResponse(**contact) for contact in response]
-

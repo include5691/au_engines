@@ -1,7 +1,7 @@
 from httpx import Client
 
 
-class MaxClientBase:
+class ClientBase:
 
     def __init__(self, instance_id: str, api_token: str, base_url: str) -> None:
         self.instance_id = instance_id

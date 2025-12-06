@@ -1,8 +1,8 @@
-from .base import MaxClientBase
+from base import ClientBase
 from ..schemas import AuthRequest, AuthCodeRequest, AuthResponse
 
 
-class MaxClientAuth(MaxClientBase):
+class MaxClientAuth(ClientBase):
 
     def request_auth_code(self, request: AuthRequest) -> AuthResponse | None:
         data = self._post(
