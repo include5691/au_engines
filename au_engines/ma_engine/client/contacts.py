@@ -1,4 +1,4 @@
-from instances_base import InstanceClientBase
+from au_engines.instances_base import InstanceClientBase
 from ..schemas import CheckAccountRequest, CheckAccountResponse, GetContactsResponse
 
 

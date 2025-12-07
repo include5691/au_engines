@@ -1,4 +1,4 @@
-from .base import PartnerClientBase
+from au_engines.partner_base import PartnerClientBase
 from ..schemas import CreateInstanceResponse, InstanceRenewData
 
 
