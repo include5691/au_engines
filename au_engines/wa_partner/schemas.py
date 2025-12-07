@@ -140,3 +140,124 @@ class CreateInstanceResponse(BaseModel):
             description="Messenger type for instance account: v3 for MAX, whatsapp for WhatsApp",
         ),
     ]
+
+
+class GetInstancesResponse(BaseModel):
+
+    id_instance: Annotated[
+        int,
+        Field(
+            validation_alias="idInstance",
+            description="Account instance identifier, int64 type, 1 to 10 digits",
+        ),
+    ]
+    name: Annotated[
+        str,
+        Field(
+            description="Instance name specified by user in personal cabinet or via createInstance method",
+        ),
+    ]
+    type_instance: Annotated[
+        str,
+        Field(
+            validation_alias="typeInstance",
+            description="Messenger type for instance account",
+        ),
+    ]
+    type_account: Annotated[
+        str,
+        Field(
+            validation_alias="typeAccount",
+            description="Not used",
+        ),
+    ]
+    partner_user_uiid: Annotated[
+        str,
+        Field(
+            validation_alias="partnerUserUiid",
+            description="Not used",
+        ),
+    ]
+    time_created: Annotated[
+        str,
+        Field(
+            validation_alias="timeCreated",
+            description="Instance creation time",
+        ),
+    ]
+    time_deleted: Annotated[
+        str,
+        Field(
+            validation_alias="timeDeleted",
+            description="Instance deletion time",
+        ),
+    ]
+    api_token_instance: Annotated[
+        str,
+        Field(
+            validation_alias="apiTokenInstance",
+            description="API token of the account instance",
+        ),
+    ]
+    deleted: Annotated[
+        bool,
+        Field(
+            description="Instance state, shows whether instance is deleted or active",
+        ),
+    ]
+    tariff: Annotated[
+        str,
+        Field(
+            description="Connected tariff on the instance",
+        ),
+    ]
+    is_free: Annotated[
+        bool,
+        Field(
+            validation_alias="isFree",
+            description="Flag indicates free instance, for example Developer tariff instance",
+        ),
+    ]
+    is_partner: Annotated[
+        bool,
+        Field(
+            validation_alias="isPartner",
+            description="Flag indicates whether instance is Partner tariff",
+        ),
+    ]
+    expiration_date: Annotated[
+        str,
+        Field(
+            validation_alias="expirationDate",
+            description="Instance expiration date (partner instances are renewed automatically)",
+        ),
+    ]
+    is_expired: Annotated[
+        bool,
+        Field(
+            validation_alias="isExpired",
+            description="Instance state, shows whether instance has expired or not",
+        ),
+    ]
+
+
+class DeleteInstanceRequest(BaseModel):
+
+    id_instance: Annotated[
+        int,
+        Field(
+            serialization_alias="idInstance",
+            description="Account instance identifier, int64 type, 1 to 10 digits",
+        ),
+    ]
+
+
+class DeleteInstanceResponse(BaseModel):
+
+    delete_instance_account: Annotated[
+        bool,
+        Field(
+            validation_alias="deleteInstanceAccount",
+            description="Instance deletion flag",
+        ),
+    ]
