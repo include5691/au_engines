@@ -1,16 +1,15 @@
 from httpx import Client
 
 
-class ClientBase:
+class PartnerClientBase:
 
-    def __init__(self, instance_id: str, api_token: str, base_url: str) -> None:
-        self.instance_id = instance_id
-        self.api_token = api_token
+    def __init__(self, partner_token: str, base_url: str) -> None:
+        self.partner_token = partner_token
         self.client = Client(base_url=base_url)
 
     def _post(self, endpoint: str, data: dict) -> dict | None:
         response = self.client.post(
-            url=endpoint.format(idInstance=self.instance_id, apiTokenInstance=self.api_token),
+            url=endpoint.format(partnerToken=self.partner_token),
             json=data,
             timeout=10,
         )
@@ -19,7 +18,7 @@ class ClientBase:
 
     def _get(self, endpoint: str, params: dict | None = None) -> dict | None:
         response = self.client.get(
-            url=endpoint.format(idInstance=self.instance_id, apiTokenInstance=self.api_token),
+            url=endpoint.format(partnerToken=self.partner_token),
             params=params,
             timeout=10,
         )

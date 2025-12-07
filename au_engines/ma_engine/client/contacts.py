@@ -1,14 +1,16 @@
-from base import ClientBase
+from instances_base import InstanceClientBase
 from ..schemas import CheckAccountRequest, CheckAccountResponse, GetContactsResponse
 
 
-class MaxClientContacts(ClientBase):
+class MaxClientContacts(InstanceClientBase):
 
     def check_account(self, request: CheckAccountRequest) -> CheckAccountResponse:
         response = self._post(
             endpoint="/waInstance{idInstance}/checkAccount/{apiTokenInstance}",
             data=request.model_dump(by_alias=True),
         )
+        if not response:
+            return None
         return CheckAccountResponse(**response)
 
     def get_contacts(self, count: int | None = None) -> list[GetContactsResponse]:
@@ -17,4 +19,6 @@ class MaxClientContacts(ClientBase):
             endpoint="/waInstance{idInstance}/getContacts/{apiTokenInstance}",
             params=params,
         )
+        if not response:
+            return None
         return [GetContactsResponse(**contact) for contact in response]
