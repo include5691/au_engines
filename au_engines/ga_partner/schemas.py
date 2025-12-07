@@ -1,5 +1,7 @@
 from typing import Annotated
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, Field, model_serializer
+
+from .enums import BOOL_MAP
 
 
 class InstanceRenewData(BaseModel):
@@ -12,6 +14,7 @@ class InstanceRenewData(BaseModel):
     mark_incoming_messages_readed_on_reply: Annotated[
         bool,
         Field(
+            False,
             serialization_alias="markIncomingMessagesReadedOnReply",
             description="Mark incoming messages as read on reply",
         ),
@@ -19,12 +22,15 @@ class InstanceRenewData(BaseModel):
     outgoing_webhook: Annotated[
         bool,
         Field(
-            serialization_alias="outgoingWebhook", description="Enable outgoing webhook"
+            False,
+            serialization_alias="outgoingWebhook",
+            description="Enable outgoing webhook",
         ),
     ]
     outgoing_message_webhook: Annotated[
         bool,
         Field(
+            False,
             serialization_alias="outgoingMessageWebhook",
             description="Enable outgoing message webhook",
         ),
@@ -32,23 +38,31 @@ class InstanceRenewData(BaseModel):
     outgoing_api_message_webhook: Annotated[
         bool,
         Field(
+            False,
             serialization_alias="outgoingAPIMessageWebhook",
             description="Enable outgoing API message webhook",
         ),
     ]
     state_webhook: Annotated[
         bool,
-        Field(serialization_alias="stateWebhook", description="Enable state webhook"),
+        Field(
+            False,
+            serialization_alias="stateWebhook",
+            description="Enable state webhook",
+        ),
     ]
     incoming_webhook: Annotated[
         bool,
         Field(
-            serialization_alias="incomingWebhook", description="Enable incoming webhook"
+            False,
+            serialization_alias="incomingWebhook",
+            description="Enable incoming webhook",
         ),
     ]
     poll_message_webhook: Annotated[
         bool,
         Field(
+            False,
             serialization_alias="pollMessageWebhook",
             description="Enable poll message webhook",
         ),
@@ -56,6 +70,7 @@ class InstanceRenewData(BaseModel):
     incoming_block_webhook: Annotated[
         bool,
         Field(
+            False,
             serialization_alias="incomingBlockWebhook",
             description="Enable incoming block webhook",
         ),
@@ -63,14 +78,33 @@ class InstanceRenewData(BaseModel):
     incoming_call_webhook: Annotated[
         bool,
         Field(
+            False,
             serialization_alias="incomingCallWebhook",
             description="Enable incoming call webhook",
         ),
     ]
     keep_online_status: Annotated[
         bool,
-        Field(serialization_alias="keepOnlineStatus", description="Keep online status"),
+        Field(
+            False,
+            serialization_alias="keepOnlineStatus",
+            description="Keep online status",
+        ),
     ]
+
+    @model_serializer(mode="plain")
+    def serialize(
+        self,
+    ) -> dict:
+        data = {}
+        for name, field in self.model_fields.items():
+            value = getattr(self, name)
+            key = field.serialization_alias or name
+            if isinstance(value, bool):
+                data[key] = BOOL_MAP[value]
+            else:
+                data[key] = value
+        return data
 
 
 class CreateInstanceResponse(BaseModel):

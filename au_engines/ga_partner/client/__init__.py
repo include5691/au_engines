@@ -1,4 +1,4 @@
-from .client import PartnerClientInstances
+from .instances import PartnerClientInstances
 
 
 class PartnerClient(PartnerClientInstances): ...
