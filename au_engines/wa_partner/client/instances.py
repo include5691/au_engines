@@ -1,24 +1,24 @@
 from au_engines.partner_base import PartnerClientBase
 from ..schemas import (
-    CreateInstanceResponse,
-    DeleteInstanceResponse,
-    GetInstancesResponse,
-    InstanceRenewData,
+    WaCreateInstanceResponse,
+    WaDeleteInstanceResponse,
+    WaGetInstancesResponse,
+    WaInstanceRenewRequest,
 )
 
 
 class PartnerClientInstances(PartnerClientBase):
 
-    def create_instance(self, data: InstanceRenewData) -> CreateInstanceResponse | None:
+    def create_instance(self, data: WaInstanceRenewRequest) -> WaCreateInstanceResponse | None:
         response = self._post(
             endpoint="/partner/createInstance/{partnerToken}",
             data=data.model_dump(by_alias=True),
         )
         if not response:
             return None
-        return CreateInstanceResponse.model_validate(response)
+        return WaCreateInstanceResponse.model_validate(response)
 
-    def get_instances(self, only_active: bool = True) -> list[GetInstancesResponse] | None:
+    def get_instances(self, only_active: bool = True) -> list[WaGetInstancesResponse] | None:
         response = self._get(
             endpoint="/partner/getInstances/{partnerToken}",
         )
@@ -26,17 +26,17 @@ class PartnerClientInstances(PartnerClientBase):
             return None
         result = []
         for instance in response:
-            instance_model = GetInstancesResponse.model_validate(instance)
+            instance_model = WaGetInstancesResponse.model_validate(instance)
             if only_active and instance_model.deleted:
                 continue
             result.append(instance_model)
         return result
 
-    def delete_instance(self, id_instance: int) -> DeleteInstanceResponse | None:
+    def delete_instance(self, id_instance: int) -> WaDeleteInstanceResponse | None:
         response = self._post(
             endpoint="/partner/deleteInstanceAccount/{partnerToken}",
             data={"idInstance": id_instance},
         )
         if not response:
             return None
-        return DeleteInstanceResponse.model_validate(response)
+        return WaDeleteInstanceResponse.model_validate(response)
