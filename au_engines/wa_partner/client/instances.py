@@ -2,7 +2,7 @@ from au_engines.partner_base import PartnerClientBase
 from ..schemas import (
     WaCreateInstanceResponse,
     WaDeleteInstanceResponse,
-    WaGetInstancesResponse,
+    WaInstancesResponse,
     WaInstanceRenewRequest,
 )
 
@@ -18,7 +18,7 @@ class WaPartnerClientInstances(PartnerClientBase):
             return None
         return WaCreateInstanceResponse.model_validate(response)
 
-    def get_instances(self, only_active: bool = True) -> list[WaGetInstancesResponse] | None:
+    def get_instances(self, only_active: bool = True) -> list[WaInstancesResponse] | None:
         response = self._get(
             endpoint="/partner/getInstances/{partnerToken}",
         )
@@ -26,7 +26,7 @@ class WaPartnerClientInstances(PartnerClientBase):
             return None
         result = []
         for instance in response:
-            instance_model = WaGetInstancesResponse.model_validate(instance)
+            instance_model = WaInstancesResponse.model_validate(instance)
             if only_active and instance_model.deleted:
                 continue
             result.append(instance_model)

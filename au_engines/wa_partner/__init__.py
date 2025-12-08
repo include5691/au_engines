@@ -3,5 +3,5 @@ from .schemas import (
     WaInstanceRenewRequest,
     WaCreateInstanceResponse,
     WaDeleteInstanceResponse,
-    WaGetInstancesResponse,
+    WaInstancesResponse,
 )

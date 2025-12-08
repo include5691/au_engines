@@ -3,5 +3,5 @@ from .schemas import (
     MaInstanceRenewRequest,
     MaCreateInstanceResponse,
     MaDeleteInstanceResponse,
-    MaGetInstancesResponse,
+    MaInstancesResponse,
 )

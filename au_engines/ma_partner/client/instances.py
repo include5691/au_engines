@@ -2,7 +2,7 @@ from au_engines.partner_base import PartnerClientBase
 from ..schemas import (
     MaCreateInstanceResponse,
     MaDeleteInstanceResponse,
-    MaGetInstancesResponse,
+    MaInstancesResponse,
     MaInstanceRenewRequest,
 )
 
@@ -18,7 +18,7 @@ class MaPartnerClientInstances(PartnerClientBase):
             return None
         return MaCreateInstanceResponse.model_validate(response)
 
-    def get_instances(self, only_active: bool = True) -> list[MaGetInstancesResponse] | None:
+    def get_instances(self, only_active: bool = True) -> list[MaInstancesResponse] | None:
         response = self._get(
             endpoint="/partner/getInstances/{partnerToken}",
         )
@@ -26,7 +26,7 @@ class MaPartnerClientInstances(PartnerClientBase):
             return None
         result = []
         for instance in response:
-            instance_model = MaGetInstancesResponse.model_validate(instance)
+            instance_model = MaInstancesResponse.model_validate(instance)
             if only_active and instance_model.deleted:
                 continue
             result.append(instance_model)

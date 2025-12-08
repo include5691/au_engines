@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 from au_engines.partner_base import (
     InstanceRenewRequestBase,
     CreateInstanceResponseBase,
-    GetInstancesResponseBase,
+    InstancesResponseBase,
     DeleteInstanceResponseBase,
 )
 
@@ -48,7 +48,7 @@ class WaInstanceRenewRequest(InstanceRenewRequestBase):
 class WaCreateInstanceResponse(CreateInstanceResponseBase): ...
 
 
-class WaGetInstancesResponse(GetInstancesResponseBase): ...
+class WaInstancesResponse(InstancesResponseBase): ...
 
 
 class WaDeleteInstanceResponse(DeleteInstanceResponseBase): ...

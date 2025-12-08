@@ -110,7 +110,7 @@ class CreateInstanceResponseBase(BaseModel):
     ]
 
 
-class GetInstancesResponseBase(BaseModel):
+class InstancesResponseBase(BaseModel):
 
     id_instance: Annotated[
         int,
