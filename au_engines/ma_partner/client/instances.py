@@ -1,24 +1,24 @@
 from au_engines.partner_base import PartnerClientBase
 from ..schemas import (
-    WaCreateInstanceResponse,
-    WaDeleteInstanceResponse,
-    WaGetInstancesResponse,
-    WaInstanceRenewRequest,
+    MaCreateInstanceResponse,
+    MaDeleteInstanceResponse,
+    MaGetInstancesResponse,
+    MaInstanceRenewRequest,
 )
 
 
-class WaPartnerClientInstances(PartnerClientBase):
+class MaPartnerClientInstances(PartnerClientBase):
 
-    def create_instance(self, data: WaInstanceRenewRequest) -> WaCreateInstanceResponse | None:
+    def create_instance(self, data: MaInstanceRenewRequest) -> MaCreateInstanceResponse | None:
         response = self._post(
             endpoint="/partner/createInstance/{partnerToken}",
             data=data.model_dump(by_alias=True),
         )
         if not response:
             return None
-        return WaCreateInstanceResponse.model_validate(response)
+        return MaCreateInstanceResponse.model_validate(response)
 
-    def get_instances(self, only_active: bool = True) -> list[WaGetInstancesResponse] | None:
+    def get_instances(self, only_active: bool = True) -> list[MaGetInstancesResponse] | None:
         response = self._get(
             endpoint="/partner/getInstances/{partnerToken}",
         )
@@ -26,17 +26,17 @@ class WaPartnerClientInstances(PartnerClientBase):
             return None
         result = []
         for instance in response:
-            instance_model = WaGetInstancesResponse.model_validate(instance)
+            instance_model = MaGetInstancesResponse.model_validate(instance)
             if only_active and instance_model.deleted:
                 continue
             result.append(instance_model)
         return result
 
-    def delete_instance(self, id_instance: int) -> WaDeleteInstanceResponse | None:
+    def delete_instance(self, id_instance: int) -> MaDeleteInstanceResponse | None:
         response = self._post(
             endpoint="/partner/deleteInstanceAccount/{partnerToken}",
             data={"idInstance": id_instance},
         )
         if not response:
             return None
-        return WaDeleteInstanceResponse.model_validate(response)
+        return MaDeleteInstanceResponse.model_validate(response)

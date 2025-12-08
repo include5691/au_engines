@@ -10,7 +10,6 @@ from au_engines.partner_base import (
 
 
 class WaInstanceRenewRequest(InstanceRenewRequestBase):
-    """Pydantic schema for instance renewal data in GA Partner."""
 
     poll_message_webhook: Annotated[
         bool,
@@ -52,12 +51,4 @@ class WaCreateInstanceResponse(CreateInstanceResponseBase): ...
 class WaGetInstancesResponse(GetInstancesResponseBase): ...
 
 
-class WaDeleteInstanceResponse(DeleteInstanceResponseBase):
-
-    delete_instance_account: Annotated[
-        bool,
-        Field(
-            validation_alias="deleteInstanceAccount",
-            description="Instance deletion flag",
-        ),
-    ]
+class WaDeleteInstanceResponse(DeleteInstanceResponseBase): ...

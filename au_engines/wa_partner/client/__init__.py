@@ -1,4 +1,4 @@
-from .instances import PartnerClientInstances
+from .instances import WaPartnerClientInstances
 
 
-class PartnerClient(PartnerClientInstances): ...
+class WaPartnerClient(WaPartnerClientInstances): ...

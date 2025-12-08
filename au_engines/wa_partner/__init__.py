@@ -1,4 +1,4 @@
-from .client import PartnerClient
+from .client import WaPartnerClient
 from .schemas import (
     WaInstanceRenewRequest,
     WaCreateInstanceResponse,
