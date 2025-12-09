@@ -2,7 +2,7 @@ from au_engines.instances_base import InstanceClientBase
 from ..schemas import AuthRequest, AuthCodeRequest, AuthResponse
 
 
-class MaxClientAuth(InstanceClientBase):
+class MaClientAuth(InstanceClientBase):
 
     def request_auth_code(self, request: AuthRequest) -> AuthResponse | None:
         data = self._post(

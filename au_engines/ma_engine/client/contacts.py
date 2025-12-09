@@ -2,7 +2,7 @@ from au_engines.instances_base import InstanceClientBase
 from ..schemas import CheckAccountRequest, CheckAccountResponse, GetContactsResponse
 
 
-class MaxClientContacts(InstanceClientBase):
+class MaClientContacts(InstanceClientBase):
 
     def check_account(self, request: CheckAccountRequest) -> CheckAccountResponse:
         response = self._post(

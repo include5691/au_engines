@@ -2,7 +2,7 @@ from au_engines.instances_base import InstanceClientBase
 from ..schemas import WaAccountSettingsResponse
 
 
-class MaxClientAccount(InstanceClientBase):
+class MaClientAccount(InstanceClientBase):
 
     def get_account_settings(self) -> WaAccountSettingsResponse | None:
         data = self._get(

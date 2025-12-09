@@ -1,6 +1,6 @@
-from .account import MaxClientAccount
-from .auth import MaxClientAuth
-from .contacts import MaxClientContacts
+from .account import MaClientAccount
+from .auth import MaClientAuth
+from .contacts import MaClientContacts
 
 
-class MaxClient(MaxClientContacts, MaxClientAuth, MaxClientAccount): ...
+class MaClient(MaClientContacts, MaClientAuth, MaClientAccount): ...

@@ -1,4 +1,4 @@
-from .client import MaxClient
+from .client import MaClient
 from .enums import AuthorizationFailureReason
 from .schemas import *
 
