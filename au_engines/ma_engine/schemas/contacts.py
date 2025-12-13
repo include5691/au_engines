@@ -1,7 +1,7 @@
 from typing import Annotated
 from pydantic import Field, BaseModel
 
-from .mixins import PhoneNumberMixin
+from ...instances_base.mixins import PhoneNumberMixin
 
 
 class CheckAccountRequest(PhoneNumberMixin):

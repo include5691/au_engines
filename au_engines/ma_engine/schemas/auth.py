@@ -1,8 +1,8 @@
 from typing import Annotated
 from pydantic import BaseModel, Field
 
+from ...instances_base.mixins import PhoneNumberMixin, ResponseStatusMixin
 from ..enums import AuthorizationFailureReason
-from .mixins import PhoneNumberMixin, ResponseStatusMixin
 
 
 class AuthRequest(PhoneNumberMixin): ...
