@@ -1,5 +1,5 @@
 from typing import Annotated
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, AliasChoices
 
 
 class PhoneNumberMixin(BaseModel):
@@ -27,3 +27,14 @@ class ResponseStatusMixin(BaseModel):
         if isinstance(v, str):
             return v.lower() != "fail"
         return v
+
+
+class InstanceIdMixin(BaseModel):
+
+    id_instance: Annotated[
+        int,
+        Field(
+            validation_alias=AliasChoices("idInstance", "id_instance"),
+            description="Account instance identifier, uint64 type, 10 digits",
+        ),
+    ]
