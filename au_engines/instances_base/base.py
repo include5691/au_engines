@@ -1,4 +1,5 @@
-from httpx import Client
+import logging
+from httpx import Client, RequestError
 
 
 class InstanceClientBase:
@@ -9,19 +10,35 @@ class InstanceClientBase:
         self.client = Client(base_url=base_url)
 
     def _post(self, endpoint: str, data: dict) -> dict | None:
-        response = self.client.post(
-            url=endpoint.format(idInstance=self.instance_id, apiTokenInstance=self.api_token),
-            json=data,
-            timeout=10,
-        )
-        response.raise_for_status()
-        return response.json() if response.content else None
+        try:
+            response = self.client.post(
+                url=endpoint.format(
+                    idInstance=self.instance_id, apiTokenInstance=self.api_token
+                ),
+                json=data,
+                timeout=10,
+            )
+            response.raise_for_status()
+            return response.json() if response.content else None
+        except RequestError as e:
+            logging.error(
+                f"Request error in instances client during POST to {endpoint}: {e}"
+            )
+            return None
 
     def _get(self, endpoint: str, params: dict | None = None) -> dict | None:
-        response = self.client.get(
-            url=endpoint.format(idInstance=self.instance_id, apiTokenInstance=self.api_token),
-            params=params,
-            timeout=10,
-        )
-        response.raise_for_status()
-        return response.json() if response.content else None
+        try:
+            response = self.client.get(
+                url=endpoint.format(
+                    idInstance=self.instance_id, apiTokenInstance=self.api_token
+                ),
+                params=params,
+                timeout=10,
+            )
+            response.raise_for_status()
+            return response.json() if response.content else None
+        except RequestError as e:
+            logging.error(
+                f"Request error in instances client during GET to {endpoint}: {e}"
+            )
+            return None
