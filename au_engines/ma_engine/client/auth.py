@@ -1,5 +1,5 @@
 from au_engines.instances_base import InstanceClientBase
-from ..schemas import AuthRequest, AuthCodeRequest, AuthResponse
+from ..schemas import AuthRequest, AuthCodeRequest, AuthResponse, LogoutResponse
 
 
 class MaClientAuth(InstanceClientBase):
@@ -21,3 +21,11 @@ class MaClientAuth(InstanceClientBase):
         if not data:
             return None
         return AuthResponse.model_validate(data)
+
+    def logout(self) -> LogoutResponse | None:
+        data = self._get(
+            endpoint="/waInstance{idInstance}/logout/{apiTokenInstance}",
+        )
+        if not data:
+            return None
+        return LogoutResponse.model_validate(data)

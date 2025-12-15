@@ -47,3 +47,14 @@ class AuthResponse(ResponseStatusMixin):
             description="The detailed data about the authorization failure",
         ),
     ]
+
+
+class LogoutResponse(BaseModel):
+
+    is_logout: Annotated[
+        bool,
+        Field(
+            description="Result of the instance logout",
+            validation_alias="isLogout",
+        ),
+    ]
