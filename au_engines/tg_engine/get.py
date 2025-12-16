@@ -22,7 +22,7 @@ def get_telegram_channels(user_id: str | int) -> list[TelegramChannel] | None:
                 timeout=10,
             )
             data = response.json()
-            if not data or not isinstance(data, dict) or not "channels" in data:
+            if data is None or not isinstance(data, dict) or not "channels" in data:
                 return None
             return [TelegramChannel(**channel) for channel in data["channels"]]
     except RequestException as e:

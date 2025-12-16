@@ -13,6 +13,7 @@ class InstanceClientBase:
 
     def _post(self, endpoint: str, data: dict) -> dict | None:
         try:
+            print(data)
             response = self.client.post(
                 url=endpoint.format(
                     idInstance=self.instance_id, apiTokenInstance=self.api_token
@@ -20,6 +21,7 @@ class InstanceClientBase:
                 json=data,
                 timeout=10,
             )
+            print(response.text)
             response.raise_for_status()
             return response.json() if response.content else None
         except RequestError as e:

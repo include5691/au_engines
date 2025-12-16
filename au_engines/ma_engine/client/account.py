@@ -8,6 +8,6 @@ class MaClientAccount(InstanceClientBase):
         data = self._get(
             endpoint="/waInstance{idInstance}/getAccountSettings/{apiTokenInstance}",
         )
-        if not data:
+        if data is None:
             return None
         return WaAccountSettingsResponse.model_validate(data)

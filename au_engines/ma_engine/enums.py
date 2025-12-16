@@ -11,3 +11,24 @@ class AuthorizationFailureReason(StrEnum):
     RATE_LIMIT_EXCEEDED = "rate_limit_exceeded"
     BLOCKED_OR_DELETED = "blocked_or_deleted"
     NO_ERROR = ""
+
+
+class ChatHistoryDirection(StrEnum):
+    INCOMING = "incoming"
+    OUTGOING = "outgoing"
+
+
+class ChatHistoryStatusMessage(StrEnum):
+    SENT = "sent"
+    DELIVERED = "delivered"
+    READ = "read"
+
+
+class ChatHistoryMessageType(StrEnum):
+    TEXT = "textMessage"
+    EXTENDED_TEXT = "extendedTextMessage"
+    IMAGE = "imageMessage"
+    VIDEO = "videoMessage"
+    DOCUMENT = "documentMessage"
+    AUDIO = "audioMessage"
+    REACTION = "reactionMessage"

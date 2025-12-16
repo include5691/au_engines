@@ -9,7 +9,7 @@ class MaClientAuth(InstanceClientBase):
             endpoint="/waInstance{idInstance}/startAuthorization/{apiTokenInstance}",
             data=request.model_dump(by_alias=True),
         )
-        if not data:
+        if data is None:
             return None
         return AuthResponse.model_validate(data)
 
@@ -18,7 +18,7 @@ class MaClientAuth(InstanceClientBase):
             endpoint="/waInstance{idInstance}/sendAuthorizationCode/{apiTokenInstance}",
             data=request.model_dump(by_alias=True),
         )
-        if not data:
+        if data is None:
             return None
         return AuthResponse.model_validate(data)
 
@@ -26,6 +26,6 @@ class MaClientAuth(InstanceClientBase):
         data = self._get(
             endpoint="/waInstance{idInstance}/logout/{apiTokenInstance}",
         )
-        if not data:
+        if data is None:
             return None
         return LogoutResponse.model_validate(data)
