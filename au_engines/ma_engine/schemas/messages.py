@@ -1,12 +1,26 @@
 from typing import Annotated
 
-from pydantic import BaseModel, Field, AliasChoices
+from pydantic import BaseModel, Field, AliasChoices, field_validator
 
 from ..enums import (
     ChatHistoryDirection,
     ChatHistoryMessageType,
     ChatHistoryStatusMessage,
 )
+
+
+class SendMessageRequest(BaseModel):
+
+    chat_id: Annotated[str, Field(serialization_alias="chatId")]
+    message: Annotated[str, Field(max_length=4000)]
+    typing_time: Annotated[
+        int | None, Field(None, serialization_alias="typingTime", ge=1000, le=20000)
+    ]
+
+
+class SendMessageResponse(BaseModel):
+
+    id_message: Annotated[str, Field(validation_alias="idMessage")]
 
 
 class GetChatHistoryRequest(BaseModel):
