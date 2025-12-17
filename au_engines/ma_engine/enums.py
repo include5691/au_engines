@@ -32,3 +32,11 @@ class ChatHistoryMessageType(StrEnum):
     DOCUMENT = "documentMessage"
     AUDIO = "audioMessage"
     REACTION = "reactionMessage"
+
+
+class TypingType(StrEnum):
+    TEXT = "text"
+    RECORDING = "recording"
+    VIDEO = "video"
+    IMAGE = "image"
+    FILE = "file"

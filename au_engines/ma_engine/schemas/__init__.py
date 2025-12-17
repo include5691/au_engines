@@ -5,6 +5,7 @@ from .credentials import MaChannelCredentialsRequest, MaChannelCredentialsRespon
 from .messages import (
     SendMessageRequest,
     SendMessageResponse,
+    SendFileByUrlRequest,
     GetChatHistoryRequest,
     ChatHistoryExtendedTextMessage,
     ChatHistoryReaction,

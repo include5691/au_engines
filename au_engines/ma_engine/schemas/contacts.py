@@ -37,29 +37,36 @@ class GetContactsResponse(BaseModel):
         str,
         Field(
             validation_alias="chatId",
+            description="Chat identifier of the contact",
         ),
     ]
 
     name: Annotated[
         str,
-        Field(),
+        Field(
+            description="Name of the contact",
+        ),
     ]
 
     contact_name: Annotated[
         str,
         Field(
             validation_alias="contactName",
+            description="Contact name stored in the address book",
         ),
     ]
 
     type: Annotated[
         str,
-        Field(),
+        Field(
+            description="Type of the contact",
+        ),
     ]
 
     phone_number: Annotated[
         int,
         Field(
             validation_alias="phoneNumber",
+            description="Phone number of the contact",
         ),
     ]
