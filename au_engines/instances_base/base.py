@@ -4,10 +4,19 @@ from httpx import Client, RequestError
 
 class InstanceClientBase:
 
-    def __init__(self, instance_id: str, api_token: str, base_url: str, daily_limit: int | None = None, phone: str | None = None) -> None:
+    def __init__(
+        self,
+        instance_id: str,
+        api_token: str,
+        base_url: str,
+        toggle_pro: bool | None = None,
+        daily_limit: int | None = None,
+        phone: str | None = None,
+    ) -> None:
         self.instance_id = instance_id
         self.api_token = api_token
         self.client = Client(base_url=base_url)
+        self.toggle_pro = toggle_pro
         self.daily_limit = daily_limit
         self.phone = phone
 
