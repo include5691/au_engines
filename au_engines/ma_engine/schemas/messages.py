@@ -106,6 +106,7 @@ class GetChatHistoryRequest(BaseModel):
         str,
         Field(
             description="Chat identifier",
+            serialization_alias="chatId",
         ),
     ]
     count: Annotated[
