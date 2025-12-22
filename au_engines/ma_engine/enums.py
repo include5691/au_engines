@@ -13,6 +13,12 @@ class AuthorizationFailureReason(StrEnum):
     NO_ERROR = ""
 
 
+class QrCodeResponseType(StrEnum):
+    QR_CODE = "qrCode"
+    ERROR = "error"
+    ALREADY_LOGGED = "alreadyLogged"
+
+
 class ChatHistoryDirection(StrEnum):
     INCOMING = "incoming"
     OUTGOING = "outgoing"

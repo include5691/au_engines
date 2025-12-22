@@ -2,7 +2,7 @@ from typing import Annotated
 from pydantic import BaseModel, Field
 
 from ...instances_base.mixins import PhoneNumberMixin, ResponseStatusMixin
-from ..enums import AuthorizationFailureReason
+from ..enums import AuthorizationFailureReason, QrCodeResponseType
 
 
 class AuthRequest(PhoneNumberMixin): ...
@@ -45,6 +45,23 @@ class AuthResponse(ResponseStatusMixin):
         AuthResponseData,
         Field(
             description="The detailed data about the authorization failure",
+        ),
+    ]
+
+
+class QrCodeResponse(BaseModel):
+
+    type_: Annotated[
+        QrCodeResponseType,
+        Field(
+            description="The type of the QR code response",
+            validation_alias="type",
+        ),
+    ]
+    message: Annotated[
+        str,
+        Field(
+            description="The QR code message content. May be a base64-encoded string or error like 'Instance has auth. You need to make log out' or 'Принимает значение instance account already authorized'",
         ),
     ]
 
