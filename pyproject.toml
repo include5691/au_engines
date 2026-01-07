@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "au_engines"
+version = "0.1.0"
+description = "Communication engines repo"
+authors = [
+    {name = "Andrey Pshenitsyn"}
+]
+requires-python = ">=3.8"
+dependencies = [
+    "requests",
+    "python-dotenv",
+    "pyotp",
+    "pyrogram",
+    "pydantic",
+    "httpx",
+    "pydantic"
+]
+
+[project.urls]
+Homepage = "https://github.com/include5691/au_engines"
